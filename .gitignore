@@ -1,5 +1,7 @@
 .env
 venv
+__pycache__
 
 chats_of*
 session_*
+chats_ids.py
