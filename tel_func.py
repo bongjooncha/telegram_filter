@@ -47,6 +47,7 @@ class TelegramForwarder:
                 if message.text and any(keyword in message.text.lower() for keyword in keywords):
                     # Forward the message to the destination channel
                     sending = chatIds.get(message.chat_id) + ":\n" + message.text
+                    print(sending)
                     await self.client.send_message(destination_channel_id, sending)
 
             else:
