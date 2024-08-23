@@ -44,7 +44,6 @@ async def main():
         for i in range(len(chatIds)):
             if chat_ids_list[i] != destination_channel_id:
                 last_message_id[i] = await forwarder.forward_messages_to_channel(chat_ids_list[i], destination_channel_id, ['실리콘투','화장품','뷰티'], last_message_id[i])
-            # await asyncio.sleep(0.02)  # Adjust the delay time as needed
 
     # 전체 메시지 호출()
     # messages = await forwarder.fetch_all_messages(source_chat_ids,2)
