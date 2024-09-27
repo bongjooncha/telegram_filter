@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
 from telethon.sync import TelegramClient
+from telethon.errors import RpcCallFailError, RpcMcgetFailError
+import asyncio
 try:
     from chats_ids import chatIds
 except ImportError:
@@ -47,7 +49,6 @@ class TelegramForwarder:
                 if message.text and any(keyword in message.text.lower() for keyword in keywords):
                     # Forward the message to the destination channel
                     sending = chatIds.get(message.chat_id) + ":\n" + message.text
-                    print(sending)
                     await self.client.send_message(destination_channel_id, sending)
 
             else:
@@ -59,6 +60,22 @@ class TelegramForwarder:
 
             # Update the last message ID
         return new_last_message_id
+    
+    async def send_error_message(self, destination_channel_id, error_message):
+        try:
+            await self.client.send_message(destination_channel_id, f"❗️서버 오류 발생❗️\n```\n{error_message}\n```")
+            print("오류 메시지가 전송되었습니다.")
+        except Exception as e:
+            print(f"오류 메시지 전송 실패: {e}")
+
+    async def forward_messages_with_retry(self, source_chat_id, destination_channel_id, keywords, last_message_id, retries=3):
+        for attempt in range(retries):
+            try:
+                return await self.forward_messages_to_channel(source_chat_id, destination_channel_id, keywords, last_message_id)
+            except (RpcCallFailError, RpcMcgetFailError) as e:
+                print(f"시도 {attempt + 1} 실패: {e}")
+                await asyncio.sleep(2 ** attempt)  # 지수 백오프
+        raise ValueError("모든 재시도 시도에 실패했습니다.")
             
 
         

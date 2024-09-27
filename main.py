@@ -34,17 +34,22 @@ async def main():
     #메시지
     chat_ids_list = list(chatIds.keys())
     last_message_id = [None]*len(chatIds)
-    destination_channel_id = -1002203481397
+    destination_channel_id = -1002158655628
     await forwarder.client.send_message(destination_channel_id, "시작")
-
     asyncio.create_task(send_hourly_message(forwarder, destination_channel_id))
-    await forwarder.client.send_message(destination_channel_id, "시작")
 
     while True:
         for i in range(len(chatIds)):
             if chat_ids_list[i] != destination_channel_id:
-                last_message_id[i] = await forwarder.forward_messages_to_channel(chat_ids_list[i], destination_channel_id, ['실리콘투','화장품','뷰티'], last_message_id[i])
-
+                try:
+                    last_message_id[i] = await forwarder.forward_messages_to_channel(chat_ids_list[i],
+                                                                                 destination_channel_id, 
+                                                                             ['실리콘투','화장품','뷰티'], 
+                                                                                 last_message_id[i])
+                except ValueError as e:
+                    await forwarder.client.send_message(destination_channel_id, "텔레그램 오류 재시작")
+                    await forwarder.send_error_message(destination_channel_id,str(e))
+        print(1)
     # 전체 메시지 호출()
     # messages = await forwarder.fetch_all_messages(source_chat_ids,2)
     # for msg in messages:
@@ -53,9 +58,6 @@ async def main():
     #     print(f"Message Time: {message_time}")
     #     print(f"Message Content: {msg.text}")
     #     print("")
-
-
-
 
 if __name__ == "__main__":
     asyncio.run(main())
