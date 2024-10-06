@@ -1,0 +1,21 @@
+.header {
+  width: 100%;
+  height: 124px;
+  background-color: #005c71;
+  display: flex;
+  align-items: center;
+}
+
+.text {
+  color: white;
+  font-weight: bold;
+  font-size: 64px;
+}
+
+.circleImg {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 0 32px;
+}
