@@ -1,0 +1,51 @@
+.ChatId {
+  margin-top: -45px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.syncronizeButton {
+  margin-left: auto;
+  margin-bottom: 5px;
+  font-size: 15px;
+  width: 100px;
+  height: 30px;
+  color: #fff;
+  background-color: rgb(0, 10, 18);
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  height: 70px;
+  background-color: #80c8c3;
+}
+
+.menu button {
+  border-radius: 15%;
+  width: 23px;
+  height: 23px;
+  border: none;
+  background-color: rgb(98, 162, 194);
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.bottomButton {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.createNewGroup {
+  margin-top: 10px;
+  margin-right: 20px;
+  width: 70px;
+}
+
+.selectAllButton {
+  margin-top: 10px;
+  width: 70px;
+}
