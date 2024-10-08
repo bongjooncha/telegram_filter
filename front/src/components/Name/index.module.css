@@ -1,0 +1,13 @@
+.Name {
+  margin-left: 30px;
+}
+
+.Name h2 {
+  color: white;
+}
+.Name input {
+  width: 200px;
+  height: 30px;
+  background: #abffff;
+  text-align: center;
+}

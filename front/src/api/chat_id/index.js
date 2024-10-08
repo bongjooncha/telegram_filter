@@ -11,3 +11,13 @@ export async function getAllChatId() {
     throw error;
   }
 }
+
+export async function reloadChatIds() {
+  try {
+    const response = await axios.get(`${BASE_URL}/synchronize_chat_ids`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

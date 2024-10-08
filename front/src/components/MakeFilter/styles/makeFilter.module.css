@@ -1,13 +1,8 @@
 .MakeFilter {
   background-color: #214f4c;
-  width: 1000px;
-  height: 700px;
-}
-
-h1 {
-  color: white;
-  margin: 10px 3px 10px 10px;
-  font-size: 40px;
+  width: 1800px;
+  height: 780px;
+  margin-top: 30px;
 }
 
 .contents {

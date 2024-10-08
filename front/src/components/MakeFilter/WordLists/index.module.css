@@ -1,0 +1,30 @@
+.inputs,
+.WordLists {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: row;
+}
+
+.WordLists input {
+  width: 200px;
+  height: 30px;
+  margin-bottom: 15px;
+  background: #abffff;
+  text-align: center;
+}
+
+.inputButton {
+  background: none;
+  margin-bottom: 15px;
+  margin-left: -35px;
+  padding: 0;
+}
+
+.addWord {
+  margin-left: 6px;
+}
