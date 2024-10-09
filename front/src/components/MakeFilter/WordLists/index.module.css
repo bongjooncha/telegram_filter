@@ -13,6 +13,7 @@
 .WordLists input {
   width: 200px;
   height: 30px;
+  margin-left: -70px;
   margin-bottom: 15px;
   background: #abffff;
   text-align: center;
@@ -25,6 +26,10 @@
   padding: 0;
 }
 
-.addWord {
-  margin-left: 6px;
+.WordLists .addWord {
+  margin-left: -62px;
+}
+
+.addButton {
+  margin-left: 75px;
 }

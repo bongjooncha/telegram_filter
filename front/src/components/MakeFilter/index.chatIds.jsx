@@ -11,7 +11,7 @@ function ChatId({ chatIds, checkedIds, setCheckedIds }) {
     if (checkedIds.length === chatIds.length) {
       setCheckedIds([]);
     } else {
-      setCheckedIds(chatIds.map((chatId) => chatId.id));
+      setCheckedIds(chatIds.map((chatId) => chatId));
     }
   };
 
@@ -41,9 +41,9 @@ function ChatId({ chatIds, checkedIds, setCheckedIds }) {
         setCheckedIds={setCheckedIds}
       />
       <div className={style.bottomButton}>
-        <button className={style.createNewGroup}>그룹 생성</button>
+        <button className={style.createNewGroup}>create group</button>
         <button className={style.selectAllButton} onClick={handleSelectAll}>
-          전체 선택
+          select all
         </button>
       </div>
     </div>

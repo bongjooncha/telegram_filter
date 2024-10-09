@@ -10,10 +10,25 @@
 }
 
 .items {
-  border: black 1px solid;
-  width: 300px;
+  width: 340px;
   height: 600px;
-  margin: 20px 50px;
+  margin: 40px 50px;
+}
+
+.itemsHeader {
+  display: flex;
+  color: white;
+  margin-top: 40px;
+  align-items: baseline;
+  margin-bottom: 20px;
+  margin-left: 10px;
+}
+
+.activate {
+  font-size: 25px;
+}
+.deactivate {
+  font-size: 10px;
 }
 
 .chatrooms {

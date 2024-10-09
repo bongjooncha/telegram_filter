@@ -1,0 +1,11 @@
+.RunningFilter {
+  margin: 50px 50px 0 100px;
+  width: 435px;
+  height: 700px;
+  background-color: #003a5a;
+  color: white;
+}
+
+.RunningFilter h1 {
+  margin-left: 30px;
+}

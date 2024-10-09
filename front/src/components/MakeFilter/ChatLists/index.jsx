@@ -18,8 +18,8 @@ function ChatLists({ chatIds, checkedIds, setCheckedIds }) {
         <div key={chatId.id}>
           <input
             type="checkbox"
-            checked={checkedIds.includes(chatId.id)}
-            onChange={() => handleCheckboxChange(chatId.id)}
+            checked={checkedIds.includes(chatId)}
+            onChange={() => handleCheckboxChange(chatId)}
           />
           {chatId.name}
         </div>

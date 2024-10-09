@@ -1,0 +1,66 @@
+.roomList {
+  height: 300px;
+}
+
+/* 스크롤바 전체 */
+.roomList::-webkit-scrollbar {
+  width: 2px; /* 스크롤바의 너비 */
+}
+
+/* 스크롤바 배경 */
+.roomList::-webkit-scrollbar-track {
+  background: #f1f1f100; /* 배경 색상 */
+}
+
+/* 스크롤바 핸들 */
+.roomList::-webkit-scrollbar-thumb {
+  background: #8b8b8b; /* 핸들 색상 */
+}
+
+/* 핸들에 마우스를 올렸을 때 */
+.roomList::-webkit-scrollbar-thumb:hover {
+  background: #555; /* 핸들 색상 변경 */
+}
+
+.inputs,
+.roomList {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.roomList input {
+  width: 240px;
+  height: 30px;
+  margin: 0 10px 15px 10px;
+  background: #abffff;
+}
+
+.inputButton {
+  margin-bottom: 15px;
+  margin-right: 10px;
+  width: 40px;
+  height: 30px;
+  padding: 0;
+}
+
+.bottomButton {
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 30px;
+}
+
+.addGroup {
+  margin-top: 10px;
+  margin-right: 20px;
+}
+
+.deleteGroup {
+  margin-top: 10px;
+}

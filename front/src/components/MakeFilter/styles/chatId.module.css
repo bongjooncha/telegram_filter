@@ -1,5 +1,5 @@
 .ChatId {
-  margin-top: -45px;
+  margin-top: 25px;
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -42,10 +42,8 @@
 .createNewGroup {
   margin-top: 10px;
   margin-right: 20px;
-  width: 70px;
 }
 
 .selectAllButton {
   margin-top: 10px;
-  width: 70px;
 }
