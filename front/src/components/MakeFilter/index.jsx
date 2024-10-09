@@ -93,6 +93,9 @@ function MakeFilter() {
             setCheckedIds={setCheckedIds}
           />
         </div>
+        <div className={style.compButPa}>
+          <button className={style.compliteButton}>complite</button>
+        </div>
       </div>
     </div>
   );

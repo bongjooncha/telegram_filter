@@ -34,3 +34,17 @@
 .chatrooms {
   margin: 0px 50px;
 }
+
+.compButPa {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  margin-left: 70px;
+}
+
+.compliteButton {
+  height: 60px;
+  width: 170px;
+  font-size: 25px;
+  background-color: #abffff;
+}

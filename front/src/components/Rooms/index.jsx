@@ -24,7 +24,7 @@ function Rooms({ rooms, setRooms, checkedIds }) {
 
   return (
     <div className={style.roomList}>
-      <div>
+      <div className={style.inputsParents}>
         {rooms.map((word, index) => (
           <div className={style.inputs} key={index}>
             <input type="text" value={word.name} readOnly />

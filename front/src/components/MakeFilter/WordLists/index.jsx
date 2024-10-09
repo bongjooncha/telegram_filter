@@ -20,7 +20,7 @@ function WordLists({ words, setWords }) {
 
   return (
     <div className={style.WordLists}>
-      <div>
+      <div className={style.inputsParents}>
         {words.map((word, index) => (
           <div className={style.inputs} key={index}>
             <input type="text" value={word} readOnly />
@@ -32,14 +32,15 @@ function WordLists({ words, setWords }) {
             </button>
           </div>
         ))}
+
+        <input
+          className={style.addWord}
+          type="text"
+          value={newWord}
+          onChange={(e) => setNewWord(e.target.value)}
+          placeholder="choose word"
+        />
       </div>
-      <input
-        className={style.addWord}
-        type="text"
-        value={newWord}
-        onChange={(e) => setNewWord(e.target.value)}
-        placeholder="단어 입력"
-      />
       <button className={style.addButton} onClick={handleAddWord}>
         단어 추가
       </button>
