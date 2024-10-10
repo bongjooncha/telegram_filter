@@ -1,10 +1,11 @@
 from fastapi import FastAPI, Depends, HTTPException, Request, status
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import text,select
+from sqlalchemy import text,select,delete
+from typing import List
 
 from database.connection import conn, get_session
 from function.tele_func import TelegramFunction
-from models.chat import Chats
+from models.chat import Chats, ChatGroups
 
 app = FastAPI()
 app.add_middleware(
@@ -46,6 +47,23 @@ async def get_all_chat_ids(session=Depends(get_session)):
     chats = all_chats.scalars().all()
     return chats
 
+@app.get("/get_group_names")
+async def get_all_group_names(session=Depends(get_session)):
+    unique_groups = session.execute(select(ChatGroups.group).distinct())
+    print(unique_groups)
+    groups = [group[0] for group in unique_groups]
+    return groups
 
 
+@app.post("/edit_chat_group")
+async def update_chat_groups(chat_groups: List[ChatGroups], session=Depends(get_session)):
+    group_value = chat_groups[0].group
+    delete_stmt = delete(ChatGroups).where(ChatGroups.group == group_value)
+    session.execute(delete_stmt)
+
+    for chat_group in chat_groups:
+        session.add(chat_group)
+
+    session.commit()
+    return {"message": "chat group updated succesfully"}
 
