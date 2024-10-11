@@ -25,7 +25,6 @@
 .menu {
   display: flex;
   align-items: center;
-<<<<<<< HEAD
   height: 65px;
   background-color: #a9ffff;
   overflow-x: auto;
@@ -63,17 +62,6 @@
   justify-content: center;
   align-items: center;
   background-color: #61ffff;
-=======
-  height: 70px;
-  background-color: #80c8c3;
-  overflow-x: auto;
-}
-
-.menu div {
-  width: 3000px;
-  display: flex;
-  justify-content: center;
->>>>>>> 21f9327677d98bb2862ee0947802de2965db2e34
 }
 
 .menu button {
