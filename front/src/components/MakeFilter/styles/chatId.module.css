@@ -6,21 +6,62 @@
   position: relative;
 }
 
-.syncronizeButton {
-  margin-left: auto;
+.topButton {
+  display: flex;
+  justify-content: end;
+}
+
+.topButton button {
+  margin-left: 15px;
   margin-bottom: 5px;
   font-size: 15px;
   width: 100px;
   height: 30px;
   color: #fff;
   background-color: rgb(0, 10, 18);
+  cursor: pointer;
 }
 
 .menu {
   display: flex;
   align-items: center;
-  height: 70px;
-  background-color: #80c8c3;
+  height: 65px;
+  background-color: #a9ffff;
+  overflow-x: auto;
+  font-size: 22px;
+}
+
+.menu::-webkit-scrollbar {
+  height: 5px;
+}
+
+.menu::-webkit-scrollbar-track {
+  background: #73e1e1;
+}
+
+.menu::-webkit-scrollbar-thumb {
+  background: #018989;
+}
+
+.menu::-webkit-scrollbar-thumb:hover {
+  background: #007575;
+}
+
+.menu > div {
+  min-width: 30%;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 500;
+  border-right: 1px solid #37b1b1;
+}
+
+.active {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #61ffff;
 }
 
 .menu button {

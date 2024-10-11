@@ -21,3 +21,36 @@ export async function reloadChatIds() {
     throw error;
   }
 }
+
+export async function getGroupNames() {
+  try {
+    const response = await axios.get(`${BASE_URL}/get_group_names`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function getChatGroups(groupname) {
+  try {
+    const response = await axios.get(`${BASE_URL}/get_chat_group/${groupname}`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function updateChatGroups(chatGroups) {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/edit_chat_group`,
+      chatGroups
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
