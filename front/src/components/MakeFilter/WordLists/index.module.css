@@ -11,7 +11,7 @@
 }
 
 .inputsParents {
-  height: 425px;
+  max-height: 425px;
   overflow-y: auto;
 }
 
@@ -37,7 +37,7 @@
 
 .inputsParents input {
   width: 280px;
-  height: 40px;
+  min-height: 40px;
   font-size: 17px;
   margin-left: -37px;
   margin-bottom: 15px;

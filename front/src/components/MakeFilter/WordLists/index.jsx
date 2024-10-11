@@ -42,7 +42,7 @@ function WordLists({ words, setWords }) {
         />
       </div>
       <button className={style.addButton} onClick={handleAddWord}>
-        단어 추가
+        add word
       </button>
     </div>
   );

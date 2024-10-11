@@ -3,6 +3,22 @@
   overflow-y: auto;
 }
 
+.lists::-webkit-scrollbar {
+  width: 5px;
+}
+
+.lists::-webkit-scrollbar-track {
+  background: rgb(32, 49, 36);
+}
+
+.lists::-webkit-scrollbar-thumb {
+  background: #f4f4f4;
+}
+
+.lists::-webkit-scrollbar-thumb:hover {
+  background: #2b7d5b;
+}
+
 .lists input {
   margin: 0 10px;
 }

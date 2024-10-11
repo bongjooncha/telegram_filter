@@ -7,8 +7,6 @@ import WordLists from "./WordLists";
 import Rooms from "components/Rooms";
 import ChatId from "./index.chatIds";
 
-import { getAllChatId } from "api/chat_id";
-
 function MakeFilter() {
   //  name
   const [name, setName] = useState("");
@@ -21,16 +19,7 @@ function MakeFilter() {
   // recivedroom
   const [receivedRooms, setReceivedRooms] = useState([]);
   // chating rooms
-  const [chatIds, setChatIds] = useState([]);
   const [checkedIds, setCheckedIds] = useState([]);
-
-  useEffect(() => {
-    const fetchChatIds = async () => {
-      const ids = await getAllChatId();
-      setChatIds(ids);
-    };
-    fetchChatIds();
-  }, []);
 
   return (
     <div className={style.MakeFilter}>
@@ -87,11 +76,7 @@ function MakeFilter() {
           </div>
         </div>
         <div className={style.chatrooms}>
-          <ChatId
-            chatIds={chatIds}
-            checkedIds={checkedIds}
-            setCheckedIds={setCheckedIds}
-          />
+          <ChatId checkedIds={checkedIds} setCheckedIds={setCheckedIds} />
         </div>
         <div className={style.compButPa}>
           <button className={style.compliteButton}>complite</button>

@@ -21,6 +21,13 @@
   align-items: center;
   height: 70px;
   background-color: #80c8c3;
+  overflow-x: auto;
+}
+
+.menu div {
+  width: 3000px;
+  display: flex;
+  justify-content: center;
 }
 
 .menu button {

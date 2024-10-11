@@ -50,20 +50,23 @@ async def get_all_chat_ids(session=Depends(get_session)):
 @app.get("/get_group_names")
 async def get_all_group_names(session=Depends(get_session)):
     unique_groups = session.execute(select(ChatGroups.group).distinct())
-    print(unique_groups)
     groups = [group[0] for group in unique_groups]
     return groups
 
+@app.get("/get_chat_group/{group}")
+async def get_chat_group(group: str, session=Depends(get_session)):
+    chat_groups = session.execute(select(ChatGroups).where(ChatGroups.group == group))
+    result = chat_groups.scalars().all()
+    if not result:
+        raise HTTPException(status_code = 404, detail='해당 그룹이 존재하지 않습니다')
+    return result
 
 @app.post("/edit_chat_group")
 async def update_chat_groups(chat_groups: List[ChatGroups], session=Depends(get_session)):
     group_value = chat_groups[0].group
     delete_stmt = delete(ChatGroups).where(ChatGroups.group == group_value)
     session.execute(delete_stmt)
-
-    for chat_group in chat_groups:
-        session.add(chat_group)
-
+    session.add_all(chat_groups)
     session.commit()
     return {"message": "chat group updated succesfully"}
 
