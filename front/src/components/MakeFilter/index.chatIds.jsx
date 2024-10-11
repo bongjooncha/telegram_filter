@@ -41,6 +41,21 @@ function ChatId({ checkedIds, setCheckedIds }) {
     setCurrent(group);
   };
 
+  useEffect(() => {
+    const fetchChatIds = async () => {
+      const ids = await getAllChatId();
+      setChatIds(ids);
+    };
+
+    const fetchGroupNames = async () => {
+      const names = await getGroupNames();
+      setGroupNames(names);
+    };
+
+    fetchChatIds();
+    fetchGroupNames();
+  }, []);
+
   const handleSelectAll = () => {
     if (checkedIds.length === chatIds.length) {
       setCheckedIds([]);
