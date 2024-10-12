@@ -48,7 +48,8 @@
 }
 
 .menu > div {
-  min-width: 30%;
+  /* min-width: 30%; */
+  flex: 1 0 30%;
   display: flex;
   justify-content: center;
   cursor: pointer;

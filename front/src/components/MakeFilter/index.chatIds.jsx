@@ -41,21 +41,6 @@ function ChatId({ checkedIds, setCheckedIds }) {
     setCurrent(group);
   };
 
-  useEffect(() => {
-    const fetchChatIds = async () => {
-      const ids = await getAllChatId();
-      setChatIds(ids);
-    };
-
-    const fetchGroupNames = async () => {
-      const names = await getGroupNames();
-      setGroupNames(names);
-    };
-
-    fetchChatIds();
-    fetchGroupNames();
-  }, []);
-
   const handleSelectAll = () => {
     if (checkedIds.length === chatIds.length) {
       setCheckedIds([]);
@@ -68,6 +53,10 @@ function ChatId({ checkedIds, setCheckedIds }) {
     setLoading(true);
     try {
       await reloadChatIds();
+      const ids = await getAllChatId();
+      setChatIds(ids);
+      const names = await getGroupNames();
+      setGroupNames(names);
     } catch (error) {
       console.error("채팅 ID를 동기화하는 중 오류 발생");
     } finally {
