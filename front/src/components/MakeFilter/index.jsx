@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import style from "./styles/makeFilter.module.css";
 
 import RunningFilter from "./RunningFilter";
 import Name from "components/Name";
 import WordLists from "./WordLists";
 import Rooms from "components/Rooms";
-import ChatId from "./index.chatIds";
+import ChatId from "components/ChatIds";
 
 function MakeFilter() {
   //  name

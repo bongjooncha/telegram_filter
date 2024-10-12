@@ -1,4 +1,4 @@
-import style from "./main.module.css";
+import style from "./index.module.css";
 import Header from "components/Header";
 import MakeFilter from "components/MakeFilter";
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import style from "./styles/chatId.module.css";
-import ChatLists from "./ChatLists";
+import style from "./index.module.css";
+import ChatLists from "../MakeFilter/ChatLists";
 import {
   getAllChatId,
   reloadChatIds,
