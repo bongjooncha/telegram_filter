@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import style from "./index.module.css";
-import { getGroupNames, updateChatGroups } from "api/chat_id";
+import { getGroupNames, updateChatGroups, deleteChatGroup } from "api/chat_id";
 
 import Header from "components/Header";
 import Name from "components/Name";
@@ -40,16 +40,20 @@ export default function EditGroup() {
   }, [name, rooms, groupNames]);
 
   const handleButtonClick = async () => {
-    const updatedRooms = rooms.map((room) => ({
-      id: room.id,
-      name: room.name,
-      group: name,
-    }));
-    try {
-      await updateChatGroups(updatedRooms);
-      console.log("그룹이 성공적으로 업데이트되었습니다.");
-    } catch (error) {
-      console.error("그룹 업데이트 중 오류 발생:", error);
+    if (buttonText === "delete") {
+      await deleteChatGroup(name);
+    } else {
+      const updatedRooms = rooms.map((room) => ({
+        id: room.id,
+        name: room.name,
+        group: name,
+      }));
+      try {
+        await updateChatGroups(updatedRooms);
+        console.log("그룹이 성공적으로 업데이트되었습니다.");
+      } catch (error) {
+        console.error("그룹 업데이트 중 오류 발생:", error);
+      }
     }
   };
 

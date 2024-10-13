@@ -42,6 +42,18 @@ export async function getChatGroups(groupname) {
   }
 }
 
+export async function deleteChatGroup(groupname) {
+  try {
+    const response = await axios.delete(
+      `${BASE_URL}/delete_chat_group/${groupname}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 export async function updateChatGroups(chatGroups) {
   try {
     const response = await axios.post(

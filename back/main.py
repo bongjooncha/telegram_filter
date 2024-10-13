@@ -61,6 +61,14 @@ async def get_chat_group(group: str, session=Depends(get_session)):
         raise HTTPException(status_code = 404, detail='해당 그룹이 존재하지 않습니다')
     return result
 
+@app.delete("/delete_chat_group/{group}")
+async def delete_chat_group(group: str, session=Depends(get_session)):
+    delete_stmt = delete(ChatGroups).where(ChatGroups.group == group)
+    session.execute(delete_stmt)
+    session.commit()
+    return {"message": "chat group deleted succesfully"}
+
+
 @app.post("/edit_chat_group")
 async def update_chat_groups(chat_groups: List[ChatGroups], session=Depends(get_session)):
     group_value = chat_groups[0].group
