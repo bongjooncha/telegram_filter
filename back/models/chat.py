@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, Field
 from sqlalchemy import UniqueConstraint
+from pydantic import BaseModel
 
 class Chats(SQLModel, table =True):
     id: int = Field(primary_key=True)
@@ -8,7 +9,7 @@ class Chats(SQLModel, table =True):
     class Config:
         json_schema_extra = {
             'example': {
-                'id': 1001738234843,
+                'id': '1001738234843',
                 'name': 'Chat Name'
             }
         }
@@ -22,8 +23,13 @@ class ChatGroups(SQLModel, table = True):
     class Config:
         json_schema_extra = {
             'example': {
-                'id': 1001738234843,
+                'id': '1001738234843',
                 'name': 'Chat Name',
                 'group': '일반'
             }
         }
+
+
+class MessageRequest(BaseModel):
+    chat_id: int
+    message: str

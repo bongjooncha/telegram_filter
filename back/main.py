@@ -3,9 +3,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import text,select,delete
 from typing import List
 
+import config
+
 from database.connection import conn, get_session
 from function.tele_func import TelegramFunction
-from models.chat import Chats, ChatGroups
+from models.chat import Chats, ChatGroups, MessageRequest
+from telethon import events
 
 app = FastAPI()
 app.add_middleware(
@@ -16,11 +19,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-auth = TelegramFunction()
+auth = config.Config.CLIENT_NAME
 
 @app.on_event("startup")
-def startup():
+async def startup():
+    await auth.start()
     conn()
+
+
+@auth.on(events.NewMessage(chats=2149529921))
+async def handler(event):
+    print(f"새 메시지: {event.message.text}")
 
 @app.get("/synchronize_chat_ids")
 async def synchronize_chat_ids(session = Depends(get_session)):
@@ -28,8 +37,7 @@ async def synchronize_chat_ids(session = Depends(get_session)):
     session.execute(text("DELETE FROM chats"))
     session.commit()
 
-    await auth.client.connect()
-    dialogs = await auth.read_chat_ids()
+    dialogs = await TelegramFunction.read_chat_ids(auth)
     for dialog in dialogs:
         try:
             chat_id = dialog.entity.id
@@ -40,6 +48,16 @@ async def synchronize_chat_ids(session = Depends(get_session)):
             pass
     session.commit()
     return {"message": "chat ids synchronized commplitly"}
+
+@app.post("/send_message")
+async def send_message(request: MessageRequest):
+    try:
+        message = await TelegramFunction.send_message(auth,request.chat_id,request.message)
+        print(message.message)
+        return {"message": f"{message.message}가 {message.peer_id} 로 전송"}
+    except Exception as e:
+        raise HTTPException(status_code=500,detail=str(e))
+
 
 @app.get("/get_all_chat_ids")
 async def get_all_chat_ids(session=Depends(get_session)):
@@ -67,7 +85,6 @@ async def delete_chat_group(group: str, session=Depends(get_session)):
     session.execute(delete_stmt)
     session.commit()
     return {"message": "chat group deleted succesfully"}
-
 
 @app.post("/edit_chat_group")
 async def update_chat_groups(chat_groups: List[ChatGroups], session=Depends(get_session)):
