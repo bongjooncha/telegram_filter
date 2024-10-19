@@ -24,7 +24,7 @@ export async function reloadChatIds() {
 
 export async function getGroupNames() {
   try {
-    const response = await axios.get(`${BASE_URL}/get_group_names`);
+    const response = await axios.get(`${BASE_URL}/group/get_group_names`);
     return response.data;
   } catch (error) {
     console.error(error);
@@ -34,7 +34,9 @@ export async function getGroupNames() {
 
 export async function getChatGroups(groupname) {
   try {
-    const response = await axios.get(`${BASE_URL}/get_chat_group/${groupname}`);
+    const response = await axios.get(
+      `${BASE_URL}/group/get_chat_group/${groupname}`
+    );
     return response.data;
   } catch (error) {
     console.error(error);
@@ -45,7 +47,7 @@ export async function getChatGroups(groupname) {
 export async function deleteChatGroup(groupname) {
   try {
     const response = await axios.delete(
-      `${BASE_URL}/delete_chat_group/${groupname}`
+      `${BASE_URL}/group/delete_chat_group/${groupname}`
     );
     return response.data;
   } catch (error) {
@@ -57,7 +59,7 @@ export async function deleteChatGroup(groupname) {
 export async function updateChatGroups(chatGroups) {
   try {
     const response = await axios.post(
-      `${BASE_URL}/edit_chat_group`,
+      `${BASE_URL}/group/edit_chat_group`,
       chatGroups
     );
     return response.data;

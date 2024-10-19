@@ -1,5 +1,5 @@
-from sqlmodel import SQLModel, Field
-from sqlalchemy import UniqueConstraint
+from sqlmodel import SQLModel, Field, Column
+from sqlalchemy import UniqueConstraint, PrimaryKeyConstraint, JSON
 from pydantic import BaseModel
 
 class Chats(SQLModel, table =True):
@@ -33,3 +33,13 @@ class ChatGroups(SQLModel, table = True):
 class MessageRequest(BaseModel):
     chat_id: int
     message: str
+
+class Filters(SQLModel, table =True):
+    filter_name: str = Field(primary_key=True)
+    tr_id_name: JSON = Field(sa_column=Column(JSON))
+    rr_id_name: JSON = Field(sa_column=Column(JSON))
+    words: JSON = Field(sa_column=Column(JSON))
+    on_off: bool = Field(default=False)
+
+    class Config:
+        arbitrary_types_allowed = True

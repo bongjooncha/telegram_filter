@@ -1,5 +1,6 @@
 chats: id(int), name(str) => 전체 체팅방 이름
 group_chats: name(str), id(int), name(str) => 생성한 group 체팅방
 
-filters: name(str), words(JSON), input_id_name(JSON),output_id_name(JSON) -> 생성한 필터 이름
+filters: filter_name(str), tr_id_name(JSON)
+          rr_id_name(JSON), words(JSON), on_off(bool) -> 생성한 필터 이름
 
