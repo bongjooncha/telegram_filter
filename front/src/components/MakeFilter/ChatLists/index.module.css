@@ -32,4 +32,5 @@
   align-items: center;
   color: rgb(224, 246, 255);
   font-weight: 400;
+  cursor: pointer;
 }

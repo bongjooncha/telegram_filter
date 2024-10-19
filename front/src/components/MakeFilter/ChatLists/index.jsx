@@ -15,7 +15,7 @@ function ChatLists({ chatIds, checkedIds, setCheckedIds }) {
   return (
     <div className={style.lists}>
       {chatIds.map((chatId) => (
-        <div key={chatId.id}>
+        <div key={chatId.id} onClick={() => handleCheckboxChange(chatId)}>
           <input
             type="checkbox"
             checked={checkedIds.includes(chatId)}
