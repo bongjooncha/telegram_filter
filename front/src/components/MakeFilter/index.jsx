@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "./styles/makeFilter.module.css";
+import { updateFilter } from "api/filter";
 
 import RunningFilter from "./RunningFilter";
 import Name from "components/Name";
@@ -21,10 +22,39 @@ function MakeFilter() {
   // chating rooms
   const [checkedIds, setCheckedIds] = useState([]);
 
+  // runfilter component reload
+  const [refresh, setRefresh] = useState(false);
+
+  const handleUpdateFilter = async () => {
+    try {
+      const formattedTrackedRooms = trackedRooms.map((room) => ({
+        id: room.id,
+        name: room.name,
+      }));
+      const formattedReceivedRooms = receivedRooms.map((room) => ({
+        id: room.id,
+        name: room.name,
+      }));
+      const filterInfo = {
+        filter_name: name,
+        tr_id_name: formattedTrackedRooms,
+        rr_id_name: formattedReceivedRooms,
+        words: words,
+      };
+      await updateFilter(filterInfo);
+    } catch (error) {
+      console.error("필터 업데이트 실패:", error);
+    } finally {
+      console.log("이전 refresh 상태:", refresh);
+      setRefresh((prev) => !prev);
+      console.log("변경된 refresh 상태:", !refresh);
+    }
+  };
+
   return (
     <div className={style.MakeFilter}>
       <div className={style.contents}>
-        <RunningFilter />
+        <RunningFilter refresh={refresh} setRefresh={setRefresh} />
         <div className={style.items}>
           <div className={style.Name}>
             <Name designation={"Filter Name"} name={name} setName={setName} />
@@ -79,7 +109,9 @@ function MakeFilter() {
           <ChatId checkedIds={checkedIds} setCheckedIds={setCheckedIds} />
         </div>
         <div className={style.compButPa}>
-          <button className={style.compliteButton}>complite</button>
+          <button className={style.compliteButton} onClick={handleUpdateFilter}>
+            complite
+          </button>
         </div>
       </div>
     </div>

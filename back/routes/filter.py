@@ -15,8 +15,8 @@ filters = APIRouter(
 
 @filters.get("/get_filter")
 async def get_filter(session = Depends(get_session)):
-    unique_filters = session.execute(select(Filters.filter_name).distinct())
-    filters = [fil[0] for fil in unique_filters]
+    unique_filters = session.execute(select(Filters.filter_name, Filters.on_off))
+    filters = [{"filter_name": fil[0], "on_off": fil[1]} for fil in unique_filters]
     return filters
 
 @filters.get("/get_filter/{filter}")

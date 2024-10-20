@@ -9,3 +9,19 @@
 .RunningFilter h1 {
   margin-left: 30px;
 }
+
+.FilterList {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+}
+
+.FilterList div {
+  background-color: #598986;
+  width: 375px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+}
