@@ -26,6 +26,16 @@ function MakeFilter() {
   const [refresh, setRefresh] = useState(false);
 
   const handleUpdateFilter = async () => {
+    if (name.trim() === "") {
+      alert("Filter Name is undefined");
+      return;
+    } else if (trackedRooms.length === 0) {
+      alert("Tracked Rooms are undefined");
+      return;
+    } else if (receivedRooms.length === 0) {
+      alert("Received Rooms are undefined");
+      return;
+    }
     try {
       const formattedTrackedRooms = trackedRooms.map((room) => ({
         id: room.id,

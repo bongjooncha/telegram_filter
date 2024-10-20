@@ -28,7 +28,7 @@ function RunningFilter({ refresh, setRefresh }) {
     <div className={style.RunningFilter}>
       <h1>Running Filter</h1>
       <div className={style.FilterList}>
-        {filterList.map((filter, index) => (
+        {filterList.map((filter) => (
           <div key={filter.filter_name} className={style.FilterItem}>
             <span>{filter.filter_name}</span>
             <button>{filter.on_off ? "on" : "off"}</button>

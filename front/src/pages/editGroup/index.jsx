@@ -13,6 +13,8 @@ export default function EditGroup() {
   const [groupNames, setGroupNames] = useState([]);
   const [checkedIds, setCheckedIds] = useState([]);
   const [buttonText, setButtonText] = useState("Save");
+  const [rerender, setRerender] = useState(false);
+  const usage = "editGroup";
 
   useEffect(() => {
     const fetchGroupNames = async () => {
@@ -36,18 +38,19 @@ export default function EditGroup() {
     } else {
       setButtonText("save");
     }
-    console.log(rooms);
   }, [name, rooms, groupNames]);
 
   const handleButtonClick = async () => {
     if (buttonText === "delete") {
       await deleteChatGroup(name);
+      setRerender((prev) => !prev);
     } else {
       const updatedRooms = rooms.map((room) => ({
         id: room.id,
         name: room.name,
         group: name,
       }));
+      setRerender((prev) => !prev);
       try {
         await updateChatGroups(updatedRooms);
         console.log("그룹이 성공적으로 업데이트되었습니다.");
@@ -70,7 +73,12 @@ export default function EditGroup() {
           <Rooms rooms={rooms} setRooms={setRooms} checkedIds={checkedIds} />
         </div>
         <div className={style.right}>
-          <ChatId checkedIds={checkedIds} setCheckedIds={setCheckedIds} />
+          <ChatId
+            rerender={rerender}
+            useage={usage}
+            checkedIds={checkedIds}
+            setCheckedIds={setCheckedIds}
+          />
         </div>
         <div className={style.buttonContainer}>
           <button className={style.button} onClick={handleButtonClick}>

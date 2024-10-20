@@ -10,11 +10,11 @@ import {
   getChatGroups,
 } from "api/chat_id";
 
-function ChatId({ checkedIds, setCheckedIds }) {
+function ChatId({ rerender, useage, checkedIds, setCheckedIds }) {
   const [chatIds, setChatIds] = useState([]);
   const [groupNames, setGroupNames] = useState([]);
-  const [current, setCurrent] = useState("ALL");
   const [loading, setLoading] = useState(false);
+  const [current, setCurrent] = useState("ALL");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,7 +35,7 @@ function ChatId({ checkedIds, setCheckedIds }) {
 
     fetchChatIds();
     fetchGroupNames();
-  }, [current]);
+  }, [rerender, current]);
 
   const handleGroupClick = (group) => {
     setCurrent(group);
@@ -99,12 +99,21 @@ function ChatId({ checkedIds, setCheckedIds }) {
         setCheckedIds={setCheckedIds}
       />
       <div className={style.bottomButton}>
-        <button
-          className={style.createNewGroup}
-          onClick={() => navigate("/edit_group")}
-        >
-          edit group
-        </button>
+        {useage === "editGroup" ? (
+          <button
+            className={style.createNewGroup}
+            onClick={() => navigate("/")}
+          >
+            edit filter
+          </button>
+        ) : (
+          <button
+            className={style.createNewGroup}
+            onClick={() => navigate("/edit_group")}
+          >
+            edit group
+          </button>
+        )}
         <button className={style.selectAllButton} onClick={handleSelectAll}>
           select all
         </button>
