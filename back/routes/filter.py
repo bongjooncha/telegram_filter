@@ -29,18 +29,19 @@ async def get_filter(filter: str, session = Depends(get_session)):
 
 @filters.delete("/delete_filter/{filter}")
 async def delete_filter(filter: str, session = Depends(get_session)):
-    delete_groups = delete(Filters.where(Filters.filter_name == filter))
+    delete_groups = delete(Filters).where(Filters.filter_name == filter)
     session.execute(delete_groups)
     session.commit()
     return {"message": "filter deleted succesfully"}
 
 @filters.post("/edit_filter")
 async def update_filter(filters: Filters, session = Depends(get_session)):
-    delete_filter = delete(Filters.where(Filters.filter_name == filter))
+    delete_filter = delete(Filters).where(Filters.filter_name ==  filters.filter_name)
     session.execute(delete_filter)
-    session.add_all(filters)
+    session.add(filters)
     session.commit()
-    return {"message": "chat group updated succesfully"}
+    return {"message": "filter updated succesfully"}
+
 
 @filters.post("/send_message")
 async def send_message(request: MessageRequest):

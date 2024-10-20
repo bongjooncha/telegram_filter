@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, Field, Column
-from sqlalchemy import UniqueConstraint, PrimaryKeyConstraint, JSON
+from typing import List, Dict, Any
+from sqlalchemy import UniqueConstraint, JSON
 from pydantic import BaseModel
 
 class Chats(SQLModel, table =True):
@@ -36,9 +37,9 @@ class MessageRequest(BaseModel):
 
 class Filters(SQLModel, table =True):
     filter_name: str = Field(primary_key=True)
-    tr_id_name: JSON = Field(sa_column=Column(JSON))
-    rr_id_name: JSON = Field(sa_column=Column(JSON))
-    words: JSON = Field(sa_column=Column(JSON))
+    tr_id_name: List[Dict[str, Any]] = Field(sa_column=Column(JSON))
+    rr_id_name: List[Dict[str, Any]] = Field(sa_column=Column(JSON))
+    words: List[str] = Field(sa_column=Column(JSON))
     on_off: bool = Field(default=False)
 
     class Config:
