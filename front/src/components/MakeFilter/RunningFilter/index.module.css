@@ -8,6 +8,7 @@
 
 .RunningFilter h1 {
   margin-left: 30px;
+  margin-bottom: 35px;
 }
 
 .FilterList {
@@ -22,6 +23,25 @@
   width: 375px;
   height: 70px;
   display: flex;
+  flex-direction: row;
   align-items: center;
   font-size: 25px;
+  cursor: pointer;
+}
+
+.FilterList div span {
+  display: block;
+  margin: 0 30px;
+  width: 200px !important;
+  flex-shrink: 0;
+}
+
+.FilterItemButton {
+  display: flex;
+  align-items: center;
+}
+
+.FilterItemButton button {
+  margin: 0 10px;
+  height: 25px;
 }

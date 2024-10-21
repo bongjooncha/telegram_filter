@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import style from "./styles/makeFilter.module.css";
-import { updateFilter } from "api/filter";
+import { updateFilter, getFilter } from "api/filter";
 
 import RunningFilter from "./RunningFilter";
 import Name from "components/Name";
@@ -21,6 +21,9 @@ function MakeFilter() {
   const [receivedRooms, setReceivedRooms] = useState([]);
   // chating rooms
   const [checkedIds, setCheckedIds] = useState([]);
+
+  // chossen Filter
+  const [filter, setFilter] = useState(null);
 
   // runfilter component reload
   const [refresh, setRefresh] = useState(false);
@@ -61,10 +64,32 @@ function MakeFilter() {
     }
   };
 
+  useEffect(() => {
+    if (filter === null) return;
+
+    const fetchFilter = async (filter) => {
+      const filterInfo = await getFilter(filter);
+      setName(filterInfo[0].filter_name);
+      setWords(filterInfo[0].words);
+      setTrackedRooms(filterInfo[0].tr_id_name);
+      setReceivedRooms(filterInfo[0].rr_id_name);
+    };
+    fetchFilter(filter);
+  }, [filter]);
+
   return (
     <div className={style.MakeFilter}>
       <div className={style.contents}>
-        <RunningFilter refresh={refresh} setRefresh={setRefresh} />
+        <RunningFilter
+          filter={filter}
+          setFilter={setFilter}
+          refresh={refresh}
+          setRefresh={setRefresh}
+          name={name}
+          words={words}
+          trackedRooms={trackedRooms}
+          receivedRooms={receivedRooms}
+        />
         <div className={style.items}>
           <div className={style.Name}>
             <Name designation={"Filter Name"} name={name} setName={setName} />

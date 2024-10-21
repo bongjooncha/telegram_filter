@@ -1,8 +1,17 @@
 import { useState, useEffect } from "react";
 import style from "./index.module.css";
-import { getAllFilter, deleteFilter } from "api/filter";
+import { getAllFilter, deleteFilter, updateFilter } from "api/filter";
 
-function RunningFilter({ refresh, setRefresh }) {
+function RunningFilter({
+  filter,
+  setFilter,
+  refresh,
+  setRefresh,
+  name,
+  words,
+  trackedRooms,
+  receivedRooms,
+}) {
   const [filterList, setFilterList] = useState([]);
 
   useEffect(() => {
@@ -14,6 +23,8 @@ function RunningFilter({ refresh, setRefresh }) {
   }, [refresh]);
 
   const handleDeleteFilter = async (id) => {
+    const confirmDelete = window.confirm("삭제하시겠습니까?");
+    if (!confirmDelete) return;
     try {
       await deleteFilter(id);
       setRefresh(!refresh);
@@ -24,17 +35,67 @@ function RunningFilter({ refresh, setRefresh }) {
     }
   };
 
+  const handleOnOff = async (filter_name) => {
+    if (filter_name.on_off === true) {
+      const confirmOff = window.confirm(`${name} 필터를 끄시겠습니까?`);
+      if (!confirmOff) return;
+      const filter_info = {
+        filter_name: name,
+        tr_id_name: trackedRooms,
+        rr_id_name: receivedRooms,
+        words: words,
+        on_off: false,
+      };
+      await updateFilter(filter_info);
+      setRefresh(!refresh);
+    } else {
+      const confirmOn = window.confirm(`${name}필터를 작동시키겠습니까?`);
+      if (!confirmOn) return;
+      const filter_info = {
+        filter_name: name,
+        tr_id_name: trackedRooms,
+        rr_id_name: receivedRooms,
+        words: words,
+        on_off: true,
+      };
+      await updateFilter(filter_info);
+      setRefresh(!refresh);
+    }
+  };
+
   return (
     <div className={style.RunningFilter}>
       <h1>Running Filter</h1>
       <div className={style.FilterList}>
-        {filterList.map((filter) => (
-          <div key={filter.filter_name} className={style.FilterItem}>
-            <span>{filter.filter_name}</span>
-            <button>{filter.on_off ? "on" : "off"}</button>
-            <button onClick={() => handleDeleteFilter(filter.filter_name)}>
-              삭제
-            </button>
+        {filterList.map((afilter) => (
+          <div
+            key={afilter.filter_name}
+            className={style.FilterItem}
+            onClick={() => setFilter(afilter.filter_name)}
+          >
+            <span
+              style={{
+                fontWeight: filter === afilter.filter_name ? "bold" : "normal",
+                fontStyle: filter === afilter.filter_name ? "italic" : "normal",
+              }}
+            >
+              {afilter.filter_name}
+            </span>
+            <div className={style.FilterItemButton}>
+              <button
+                onClick={() => {
+                  setFilter(afilter.filter_name);
+                  setTimeout(() => {
+                    handleOnOff(afilter);
+                  }, 100);
+                }}
+              >
+                {afilter.on_off ? "on" : "off"}
+              </button>
+              <button onClick={() => handleDeleteFilter(afilter.filter_name)}>
+                삭제
+              </button>
+            </div>
           </div>
         ))}
       </div>
