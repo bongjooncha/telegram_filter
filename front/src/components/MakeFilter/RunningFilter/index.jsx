@@ -1,6 +1,11 @@
 import { useState, useEffect } from "react";
 import style from "./index.module.css";
-import { getAllFilter, deleteFilter, updateFilter } from "api/filter";
+import {
+  getAllFilter,
+  deleteFilter,
+  updateFilter,
+  registerChat,
+} from "api/filter";
 
 function RunningFilter({
   filter,
@@ -59,6 +64,7 @@ function RunningFilter({
         on_off: true,
       };
       await updateFilter(filter_info);
+      await registerChat(filter_info);
       setRefresh(!refresh);
     }
   };

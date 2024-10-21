@@ -1,5 +1,5 @@
 from fastapi import APIRouter,  Depends, HTTPException
-from main import auth
+from main import client
 
 from sqlalchemy import select,delete
 from typing import List
@@ -46,13 +46,14 @@ async def update_filter(filters: Filters, session = Depends(get_session)):
 @filters.post("/send_message")
 async def send_message(request: MessageRequest):
     try:
-        message = await TelegramFunction.send_message(auth,request.chat_id,request.message)
+        message = await TelegramFunction.send_message(client,request.chat_id,request.message)
         print(message.message)
         return {"message": f"{message.message}가 {message.peer_id} 로 전송"}
     except Exception as e:
         raise HTTPException(status_code=500,detail=str(e))
 
 
-@auth.on(events.NewMessage(chats=2149529921))
-async def handler(event):
-    print(f"새 메시지: {event.message.text}")
+@filters.post("/register_chat")
+async def register_chat(chat_request: Filters):
+    for tr in chat_request.tr_id_name:
+        await TelegramFunction.register_new_chat_handler(client, tr, chat_request.rr_id_name, chat_request.words)

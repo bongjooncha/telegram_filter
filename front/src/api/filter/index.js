@@ -46,3 +46,16 @@ export async function updateFilter(filter_info) {
     throw error;
   }
 }
+
+export async function registerChat(chat_request) {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/filter/register_chat`,
+      chat_request
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

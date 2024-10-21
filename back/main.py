@@ -8,7 +8,6 @@ import config
 from database.connection import conn, get_session
 from function.tele_func import TelegramFunction
 from models.chat import Chats, MessageRequest
-from telethon import events
 
 
 app = FastAPI()
@@ -21,11 +20,11 @@ app.add_middleware(
 )
 
 
-auth = config.Config.CLIENT_NAME
+client = config.Config.CLIENT_NAME
 
 @app.on_event("startup")
 async def startup():
-    await auth.start()
+    await client.start()
     conn()
 
 
@@ -41,7 +40,7 @@ async def synchronize_chat_ids(session = Depends(get_session)):
     session.execute(text("DELETE FROM chats"))
     session.commit()
 
-    dialogs = await TelegramFunction.read_chat_ids(auth)
+    dialogs = await TelegramFunction.read_chat_ids(client)
     for dialog in dialogs:
         try:
             chat_id = dialog.entity.id
