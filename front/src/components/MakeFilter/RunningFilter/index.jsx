@@ -4,7 +4,7 @@ import {
   getAllFilter,
   deleteFilter,
   updateFilter,
-  registerChat,
+  restartHandler,
 } from "api/filter";
 
 function RunningFilter({
@@ -64,46 +64,52 @@ function RunningFilter({
         on_off: true,
       };
       await updateFilter(filter_info);
-      await registerChat(filter_info);
       setRefresh(!refresh);
     }
   };
 
   return (
     <div className={style.RunningFilter}>
-      <h1>Running Filter</h1>
+      <div className={style.RunningFilterHeader}>
+        <h1>Running Filter</h1>
+        <button onClick={restartHandler}>🔄</button>
+      </div>
       <div className={style.FilterList}>
-        {filterList.map((afilter) => (
-          <div
-            key={afilter.filter_name}
-            className={style.FilterItem}
-            onClick={() => setFilter(afilter.filter_name)}
-          >
-            <span
-              style={{
-                fontWeight: filter === afilter.filter_name ? "bold" : "normal",
-                fontStyle: filter === afilter.filter_name ? "italic" : "normal",
-              }}
+        {filterList
+          .filter((afilter) => afilter.filter_name !== "")
+          .map((afilter) => (
+            <div
+              key={afilter.filter_name}
+              className={style.FilterItem}
+              onClick={() => setFilter(afilter.filter_name)}
             >
-              {afilter.filter_name}
-            </span>
-            <div className={style.FilterItemButton}>
-              <button
-                onClick={() => {
-                  setFilter(afilter.filter_name);
-                  setTimeout(() => {
-                    handleOnOff(afilter);
-                  }, 100);
+              <span
+                style={{
+                  fontWeight:
+                    filter === afilter.filter_name ? "bold" : "normal",
+                  fontStyle:
+                    filter === afilter.filter_name ? "italic" : "normal",
                 }}
               >
-                {afilter.on_off ? "on" : "off"}
-              </button>
-              <button onClick={() => handleDeleteFilter(afilter.filter_name)}>
-                삭제
-              </button>
+                {afilter.filter_name}
+              </span>
+              <div className={style.FilterItemButton}>
+                <button
+                  onClick={() => {
+                    setFilter(afilter.filter_name);
+                    setTimeout(() => {
+                      handleOnOff(afilter);
+                    }, 100);
+                  }}
+                >
+                  {afilter.on_off ? "on" : "off"}
+                </button>
+                <button onClick={() => handleDeleteFilter(afilter.filter_name)}>
+                  삭제
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

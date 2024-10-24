@@ -47,12 +47,9 @@ export async function updateFilter(filter_info) {
   }
 }
 
-export async function registerChat(chat_request) {
+export async function restartHandler() {
   try {
-    const response = await axios.post(
-      `${BASE_URL}/filter/register_chat`,
-      chat_request
-    );
+    const response = await axios.get(`${BASE_URL}/filter/run_all_on`);
     return response.data;
   } catch (error) {
     console.error(error);

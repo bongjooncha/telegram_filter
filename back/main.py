@@ -1,13 +1,13 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from sqlalchemy import text,select,delete
-from typing import List
+from sqlalchemy import text,select
+from sqlalchemy.orm import Session
 
 import config
 
 from database.connection import conn, get_session
 from function.tele_func import TelegramFunction
-from models.chat import Chats, MessageRequest
+from models.chat import Chats
 
 
 app = FastAPI()
@@ -26,7 +26,12 @@ client = config.Config.CLIENT_NAME
 async def startup():
     await client.start()
     conn()
-
+    # 데이터베이스 세션 생성
+    session: Session = next(get_session())
+    # TelegramFunction 인스턴스 생성
+    telegram_function = TelegramFunction()
+    # run_on_filters 함수 실행
+    await telegram_function.run_on_filters(auth=client, session=session)
 
 from routes.group import *
 from routes.filter import*
@@ -57,5 +62,3 @@ async def get_all_chat_ids(session=Depends(get_session)):
     all_chats = session.execute(select(Chats))
     chats = all_chats.scalars().all()
     return chats
-
-
