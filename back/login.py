@@ -1,14 +1,14 @@
 import asyncio
-from function.tele_func import TelegramFunction
+from config import Config
 
 async def main():
-    client = TelegramFunction().client
+    client = Config.CLIENT_NAME
     await client.connect()
     
     # #auth 확인
     if not await client.is_user_authorized():
-        await client.send_code_request(TelegramFunction().phone_number)
-        await client.sign_in(TelegramFunction().phone_number, input('Enter the code: '))
+        await client.send_code_request(Config.TELEGRAM_PHONE)
+        await client.sign_in(Config.TELEGRAM_PHONE, input('Enter the code: '))
 
 
 if __name__ == "__main__":
