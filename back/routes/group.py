@@ -16,6 +16,7 @@ async def get_all_group_names(session=Depends(get_session)):
     groups = [group[0] for group in unique_groups]
     return groups
 
+
 @group.get("/get_chat_group/{group}")
 async def get_chat_group(group: str, session=Depends(get_session)):
     chat_groups = session.execute(select(ChatGroups).where(ChatGroups.group == group))

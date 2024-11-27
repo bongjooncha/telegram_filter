@@ -8,6 +8,7 @@ import {
   reloadChatIds,
   getGroupNames,
   getChatGroups,
+  getBotTokens,
 } from "api/chat_id";
 
 function ChatId({ rerender, useage, checkedIds, setCheckedIds }) {
@@ -22,6 +23,9 @@ function ChatId({ rerender, useage, checkedIds, setCheckedIds }) {
       if (current === "ALL") {
         const ids = await getAllChatId();
         setChatIds(ids);
+      } else if (current === "BOT") {
+        const tokens = await getBotTokens();
+        setChatIds(tokens);
       } else {
         const ids = await getChatGroups(current);
         setChatIds(ids);
@@ -80,6 +84,15 @@ function ChatId({ rerender, useage, checkedIds, setCheckedIds }) {
           }`}
         >
           ALL
+        </div>
+        <div
+          key="BOT"
+          onClick={() => handleGroupClick("BOT")}
+          className={`${style.menuItem}  ${
+            current === "BOT" ? style.active : ""
+          }`}
+        >
+          BOT
         </div>
         {groupNames.map((groupName) => (
           <div

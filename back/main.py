@@ -7,7 +7,7 @@ import config
 
 from database.connection import conn, get_session
 from function.tele_func import TelegramFunction
-from models.chat import Chats
+from models.chat import Chats, Bot
 
 
 app = FastAPI()
@@ -62,3 +62,9 @@ async def get_all_chat_ids(session=Depends(get_session)):
     all_chats = session.execute(select(Chats))
     chats = all_chats.scalars().all()
     return chats
+
+
+@app.get("/bot_tokens")
+async def get_bot_tokens(session=Depends(get_session)):
+    bots = session.execute(select(Bot))
+    return bots.scalars().all()

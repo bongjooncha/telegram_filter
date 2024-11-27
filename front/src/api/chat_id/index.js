@@ -68,3 +68,13 @@ export async function updateChatGroups(chatGroups) {
     throw error;
   }
 }
+
+export async function getBotTokens() {
+  try {
+    const response = await axios.get(`${BASE_URL}/bot_tokens`);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

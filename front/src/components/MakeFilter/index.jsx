@@ -145,7 +145,7 @@ function MakeFilter() {
         </div>
         <div className={style.compButPa}>
           <button className={style.compliteButton} onClick={handleUpdateFilter}>
-            complite
+            complete
           </button>
         </div>
       </div>

@@ -44,3 +44,8 @@ class Filters(SQLModel, table =True):
 
     class Config:
         arbitrary_types_allowed = True
+
+
+class Bot(SQLModel, table = True):
+    name: str = Field(primary_key=True)
+    token: str = Field(nullable=False)
